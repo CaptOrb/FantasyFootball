@@ -63,4 +63,17 @@ class methods {
         System.out.println(player.getName() + " has obtained a score of " + score + " points");
         return score;
     }
+
+    static void printSortedScores(Player[] player, int week){
+
+        System.out.println("\nYou will now see the scores of each player for week " + week + "sorted from highest to lowest\n");
+        System.out.println("Player            Score");
+
+        for (Player aPlayer : player) {
+            if (week == 1)
+                System.out.printf("%-10s %10d %n", aPlayer.getName() + "  ", aPlayer.getScore(1));
+            else
+                System.out.printf("%-10s %10d %n", aPlayer.getName() + "  ", aPlayer.getScore(2));
+        }
+    }
 }

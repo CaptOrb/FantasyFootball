@@ -91,21 +91,13 @@ public class FantasyFootball {
             players[k].setWeek2PlayerScore(methods.askDetails(players[k], 2));
         }
 
-        System.out.println("\nYou will now see the scores of each player for week 1 sorted from highest to lowest\n");
-        System.out.println("Player            Score");
-        for (int m = 0; m < playerName.length; m++) {
-
-            // print scores from week 1
-            System.out.printf("%-10s %10d %n", players[m].getName() + "  ", players[m].getScore(1));
-        }
+        // Call method to print the sorted player scores for the first week
+        methods.printSortedScores(players, 1);
 
         // sort the scores from week 2 from highest to lowest
         Arrays.sort(players, new week2PlayerComparator());
 
-        System.out.println("\nYou will now see the scores of each player for week 2 sorted from highest to lowest\n");
-        System.out.println("Player            Score");
-        for (int n = 0; n < playerName.length; n++) {
-            System.out.printf("%-10s %10d %n", players[n].getName() + "  ", players[n].getScore(2));
-        }
+        // Call method to print the sorted player scores for the second week
+        methods.printSortedScores(players, 2);
     }
 }
