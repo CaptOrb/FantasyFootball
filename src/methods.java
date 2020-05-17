@@ -1,9 +1,25 @@
 import java.util.Scanner;
 
 class methods {
-    static int askDetails(Player player, int playerWeek) {
+    private static Scanner keyboard = new Scanner(System.in);
 
-        Scanner keyboard = new Scanner(System.in);
+    static void initialisePlayers(String[] player, int numPlayers){
+        for (int i = 0; i < numPlayers; i++) {
+            while (true) {
+                System.out.print("Enter player " + (i + 1) + "'s name: ");
+                player[i] = keyboard.next();
+
+                // if the user didn't enter a player name, inform them that the player name cannot be empty
+                if (player[i] == null || player[i].length() == 0) {
+                    System.out.println("\nYou must enter a player name");
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    static int askDetails(Player player, int playerWeek) {
 
         //every player at the beginning has 0 points
         int score = 0;
@@ -17,7 +33,7 @@ class methods {
             score += 2;
 
             int didScore;
-            System.out.print("How many times did " + player.getName() + " score in the game? ");
+            System.out.print("How many times did " + player.getName() + " score a goal in the game? ");
             didScore = keyboard.nextInt();
             keyboard.nextLine();
             // Award 5 points for scoring each goal
@@ -66,7 +82,7 @@ class methods {
 
     static void printSortedScores(Player[] player, int week){
 
-        System.out.println("\nYou will now see the scores of each player for week " + week + "sorted from highest to lowest\n");
+        System.out.println("\nYou will now see the scores of each player for week " + week + " sorted from highest to lowest\n");
         System.out.println("Player            Score");
 
         for (Player aPlayer : player) {

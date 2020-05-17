@@ -62,19 +62,8 @@ public class FantasyFootball {
 
         String[] playerName = new String[numPlayers];
 
-        for (int i = 0; i < numPlayers; i++) {
-            while (true) {
-                System.out.print("Enter player " + (i + 1) + "'s name: ");
-                playerName[i] = keyboard.next();
-
-                // if the user didn't enter a player name, inform them that the player name cannot be empty
-                if (playerName[i] == null || playerName[i].length() == 0) {
-                    System.out.println("\nYou must enter a player name");
-                } else {
-                    break;
-                }
-            }
-        }
+        // Call method to obtain all the players names
+        methods.initialisePlayers(playerName, numPlayers);
 
         Player[] players = new Player[playerName.length];
 
