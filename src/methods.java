@@ -1,6 +1,13 @@
 import java.util.Scanner;
 
 class methods {
+
+    static void displayWelcomeMessage(){
+        System.out.println("Welcome to Fantasy Football!\n\nYou will be asked to input details about each player's weekly " +
+                "performance " + "and then each player's total points will be computed for each week.\n" +
+                "The points every player obtained per week will be displayed ranked from highest to lowest\n");
+    }
+
     private static Scanner keyboard = new Scanner(System.in);
 
     static void initialisePlayers(String[] player, int numPlayers){
@@ -35,14 +42,13 @@ class methods {
             int didScore;
             System.out.print("How many times did " + player.getName() + " score a goal in the game? ");
             didScore = keyboard.nextInt();
-            keyboard.nextLine();
             // Award 5 points for scoring each goal
             score += 5 * didScore;
 
             int goalAssist;
             System.out.print("How many times did " + player.getName() + " assist a goal? ");
             goalAssist = keyboard.nextInt();
-            // Award 3 points for assisting eacg goal
+            // Award 3 points for assisting each goal
             score += 3 * goalAssist;
 
             int missedPenalty;
@@ -55,6 +61,7 @@ class methods {
             System.out.print("Did " + player.getName() + " get a yellow card? (y/n) ");
             yellowCard = keyboard.next();
             if (yellowCard.equals("y")) {
+                //subtract 1 point for a yellow card
                 score -= 1;
             }
 
@@ -62,7 +69,7 @@ class methods {
             System.out.print("Did " + player.getName() + " get a red card? (y/n) ");
             redCard = keyboard.next();
             if (redCard.equals("y")) {
-                //subtract 3 point for a red card
+                //subtract 3 points for a red card
                 score -= 3;
             }
 
@@ -70,7 +77,7 @@ class methods {
             System.out.print("Was " + player.getName() + " the man of the match? (y/n) ");
             manOfMatch = keyboard.next();
             if (manOfMatch.equals("y")) {
-                // Award 5 points for man of the match
+                // Award 5 points for the man of the match
                 score += 5;
             }
         }
@@ -80,13 +87,13 @@ class methods {
         return score;
     }
 
-    static void printSortedScores(Player[] player, int week) {
+    static void printSortedScores(Player[] players, int week) {
 
-        System.out.println("\nYou will now see the scores of each player for week " + week + " sorted from highest to lowest\n");
-        System.out.println("Player            Score");
+        System.out.println("\nYou will now see the points for each player for week " + week + " sorted from highest to lowest\n");
+        System.out.println("Player            Points");
 
-        // Print the player names and scores
-        for (Player aPlayer : player) {
+        // Print the sorted player names and scores
+        for (Player aPlayer : players) {
             System.out.printf("%-10s %10d %n", aPlayer.getName() + "  ", aPlayer.getScore(week));
         }
     }

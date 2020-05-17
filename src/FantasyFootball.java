@@ -50,6 +50,8 @@ public class FantasyFootball {
 
         Scanner keyboard = new Scanner(System.in);
 
+        methods.displayWelcomeMessage();
+
         int numPlayers;
 
         while (true) {
