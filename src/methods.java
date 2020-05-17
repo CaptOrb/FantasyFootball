@@ -80,16 +80,14 @@ class methods {
         return score;
     }
 
-    static void printSortedScores(Player[] player, int week){
+    static void printSortedScores(Player[] player, int week) {
 
         System.out.println("\nYou will now see the scores of each player for week " + week + " sorted from highest to lowest\n");
         System.out.println("Player            Score");
 
+        // Print the player names and scores
         for (Player aPlayer : player) {
-            if (week == 1)
-                System.out.printf("%-10s %10d %n", aPlayer.getName() + "  ", aPlayer.getScore(1));
-            else
-                System.out.printf("%-10s %10d %n", aPlayer.getName() + "  ", aPlayer.getScore(2));
+            System.out.printf("%-10s %10d %n", aPlayer.getName() + "  ", aPlayer.getScore(week));
         }
     }
 }

@@ -28,6 +28,7 @@ class Player {
     void setWeek1PlayerScore(int newScore) {
         this.week1PlayerScore = newScore;
     }
+
     void setWeek2PlayerScore(int newScore) {
         this.week2PlayerScore = newScore;
     }
@@ -65,20 +66,23 @@ public class FantasyFootball {
         // Call method to obtain all the players names
         methods.initialisePlayers(playerName, numPlayers);
 
+        // Now that we have the players names, create player object for every player
         Player[] players = new Player[playerName.length];
 
         for (int j = 0; j < playerName.length; j++) {
             players[j] = new Player(playerName[j]);
 
+            // store the score obtained for the first week
             players[j].setWeek1PlayerScore(methods.askDetails(players[j], 1));
+        }
+
+        for (int k = 0; k < playerName.length; k++) {
+            // store the score obtained for the second week
+            players[k].setWeek2PlayerScore(methods.askDetails(players[k], 2));
         }
 
         // sort the scores from week 1 from highest to lowest
         Arrays.sort(players, new week1PlayerComparator());
-
-        for (int k = 0; k < playerName.length; k++) {
-            players[k].setWeek2PlayerScore(methods.askDetails(players[k], 2));
-        }
 
         // Call method to print the sorted player scores for the first week
         methods.printSortedScores(players, 1);
