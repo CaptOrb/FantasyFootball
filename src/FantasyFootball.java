@@ -25,12 +25,11 @@ class Player {
             return week2PlayerScore;
     }
 
-    void setWeek1PlayerScore(int newScore) {
-        this.week1PlayerScore = newScore;
-    }
-
-    void setWeek2PlayerScore(int newScore) {
-        this.week2PlayerScore = newScore;
+    void setWeekPlayerScore(int newScore, int week) {
+        if (week == 1)
+            this.week1PlayerScore = newScore;
+        else
+            this.week2PlayerScore = newScore;
     }
 }
 class week1PlayerComparator implements Comparator < Player > {
@@ -75,12 +74,12 @@ public class FantasyFootball {
             players[j] = new Player(playerName[j]);
 
             // store the score obtained for the first week
-            players[j].setWeek1PlayerScore(methods.askDetails(players[j], 1));
+            players[j].setWeekPlayerScore(methods.askDetails(players[j], 1), 1);
         }
 
         for (int k = 0; k < playerName.length; k++) {
             // store the score obtained for the second week
-            players[k].setWeek2PlayerScore(methods.askDetails(players[k], 2));
+            players[k].setWeekPlayerScore(methods.askDetails(players[k], 2), 2);
         }
 
         // sort the scores from week 1 from highest to lowest

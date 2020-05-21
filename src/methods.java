@@ -31,7 +31,9 @@ class methods {
         //every player at the beginning has 0 points
         int score = 0;
         String didPlay;
-        System.out.print("\nDid " + player.getName() + " play in the game on week " + playerWeek + "? (y/n) ");
+        String playerName = player.getName();
+
+        System.out.print("\nDid " + playerName + " play in the game on week " + playerWeek + "? (y/n) ");
         didPlay = keyboard.nextLine();
 
         // Check if the player played in the game
@@ -40,28 +42,28 @@ class methods {
             score += 2;
 
             int didScore;
-            System.out.print("How many times did " + player.getName() + " score a goal in the game? ");
+            System.out.print("How many times did " + playerName + " score a goal in the game? ");
             didScore = keyboard.nextInt();
             keyboard.nextLine();
             // Award 5 points for scoring each goal
             score += 5 * didScore;
 
             int goalAssist;
-            System.out.print("How many times did " + player.getName() + " assist a goal? ");
+            System.out.print("How many times did " + playerName + " assist a goal? ");
             goalAssist = keyboard.nextInt();
             keyboard.nextLine();
             // Award 3 points for assisting each goal
             score += 3 * goalAssist;
 
             int missedPenalty;
-            System.out.print("How many times did " + player.getName() + " miss a penalty? ");
+            System.out.print("How many times did " + playerName + " miss a penalty? ");
             missedPenalty = keyboard.nextInt();
             keyboard.nextLine();
             //subtract 3 points for each missed penalty
             score -= 3 * missedPenalty;
 
             String yellowCard;
-            System.out.print("Did " + player.getName() + " get a yellow card? (y/n) ");
+            System.out.print("Did " + playerName + " get a yellow card? (y/n) ");
             yellowCard = keyboard.nextLine();
             if (yellowCard.equals("y")) {
                 //subtract 1 point for a yellow card
@@ -69,7 +71,7 @@ class methods {
             }
 
             String redCard;
-            System.out.print("Did " + player.getName() + " get a red card? (y/n) ");
+            System.out.print("Did " + playerName + " get a red card? (y/n) ");
             redCard = keyboard.nextLine();
             if (redCard.equals("y")) {
                 //subtract 3 points for a red card
@@ -77,7 +79,7 @@ class methods {
             }
 
             String manOfMatch;
-            System.out.print("Was " + player.getName() + " the man of the match? (y/n) ");
+            System.out.print("Was " + playerName + " the man of the match? (y/n) ");
             manOfMatch = keyboard.nextLine();
             if (manOfMatch.equals("y")) {
                 // Award 5 points for the man of the match
@@ -86,7 +88,7 @@ class methods {
         }
 
         // Output player's total score
-        System.out.println(player.getName() + " has obtained a score of " + score + " points");
+        System.out.println(playerName + " has obtained a score of " + score + " points");
         return score;
     }
 
