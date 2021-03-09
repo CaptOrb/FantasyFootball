@@ -1,21 +1,6 @@
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
 
-class week1PlayerComparator implements Comparator < Player > {
-    public int compare(Player p1, Player p2) {
-        return Integer.compare(p2.getScore(1), p1.getScore(1));
-    }
-}
-
-class week2PlayerComparator implements Comparator < Player > {
-    public int compare(Player p1, Player p2) {
-        return Integer.compare(p2.getScore(2), p1.getScore(2));
-    }
-}
 public class FantasyFootball {
-
-    private static final int NUMBERWEEKS = 2;
 
     public static void main(String[] args) {
 
@@ -23,48 +8,57 @@ public class FantasyFootball {
 
         Util.displayWelcomeMessage();
 
-        int numPlayers;
+        int numPlayers = 0;
+        int numWeeks = 0;
 
-        do{
+        do {
             System.out.print("How many players are on each team? (Min: 2) ");
-            numPlayers = keyboard.nextInt();
 
-            if(numPlayers < 2)
-            System.out.print("\nAt least two players are required!\n");
+            try {
+                numPlayers = keyboard.nextInt();
 
+            } catch (InputMismatchException ex) {
+                System.out.println("Must enter an integer");
+                keyboard.next();
+            }
         } while (numPlayers < 2);
 
-        String[] playerName = new String[numPlayers];
+
+        do {
+            System.out.print("How many weeks would you like to keep track of the teams? (Min: 2)\n ");
+
+            try {
+                numWeeks = keyboard.nextInt();
+            } catch (InputMismatchException ex) {
+                System.out.println("Must enter an integer");
+                keyboard.next();
+            }
+
+            if (numWeeks < 2)
+                System.out.print("\nYou must choose at least 2 weeks\n");
+
+        } while (numWeeks < 2);
+
 
         // Call method to obtain all the players names
-        Util.initialisePlayers(playerName, numPlayers);
-
-        // Array of player objects
-        Player[] players = new Player[playerName.length];
-
-        // Create player objects, store them in array of player objects
-        for (int j = 0; j < playerName.length; j++) {
-            players[j] = new Player(playerName[j]);
-        }
+        ArrayList<Player> players = Util.initialisePlayers(numPlayers);
 
         // for every week, ask all the players how each of their team's players performed in the game
-        for (int i = 0; i < NUMBERWEEKS; i++) {
+        for (int i = 0; i < numWeeks; i++) {
             for (Player player : players) {
                 // store the score obtained for each week
                 player.setWeekPlayerScore(Util.askDetails(player, i), i);
             }
         }
 
-        // sort the scores from week 1 from highest to lowest
-        Arrays.sort(players, new week1PlayerComparator());
+        for (int i = 0; i < numWeeks; i++) {
+            Compare weekToCompare = new Compare(i);
 
-        // Call method to print the sorted player scores for the first week
-        Util.printSortedScores(players, 1);
+            // sort the scores from week 1 from highest to lowest
+            Collections.sort(players, weekToCompare);
 
-        // sort the scores from week 2 from highest to lowest
-        Arrays.sort(players, new week2PlayerComparator());
-
-        // Call method to print the sorted player scores for the second week
-        Util.printSortedScores(players, 2);
+            // Call method to print the sorted player scores for the first week
+            Util.printSortedScores(players, i);
+        }
     }
 }

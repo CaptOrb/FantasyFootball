@@ -5,8 +5,8 @@ public class Player {
     private final int[] weeklyScore = new int[10];
 
     Player(String name) {
-        if(name.trim().isEmpty()){
-            throw  new IllegalArgumentException("Name should not be empty");
+        if (name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name should not be empty");
         } else {
             this.playerName = name;
         }
@@ -17,9 +17,6 @@ public class Player {
     }
 
     public int getScore(int week) {
-        if(week < 1){
-            throw new IllegalArgumentException("Week should be positive");
-        }
         return weeklyScore[week];
     }
 

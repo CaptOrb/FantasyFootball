@@ -1,29 +1,38 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Util {
 
-    static void displayWelcomeMessage(){
-        System.out.println("Welcome to Fantasy Football!\n\nYou will be asked to input details about each player's weekly " +
-                "performance " + "and then each player's total points will be computed for each week.\n" +
-                "The points every player obtained per week will be displayed ranked from highest to lowest\n");
+    static void displayWelcomeMessage() {
+        System.out.println("""
+                Welcome to Fantasy Football!
+
+                You will be asked to input details about each player's weekly performance and then each player's
+                 total points will be computed for each week.
+                The points every player obtained per week will be displayed ranked from highest to lowest
+                """);
     }
 
     private static final Scanner keyboard = new Scanner(System.in);
 
-    static void initialisePlayers(String[] player, int numPlayers){
+    static ArrayList<Player> initialisePlayers(int numPlayers) {
+        ArrayList<Player> players = new ArrayList<>();
+
         for (int i = 0; i < numPlayers; i++) {
             while (true) {
                 System.out.print("Enter player " + (i + 1) + "'s name: ");
-                player[i] = keyboard.nextLine();
 
+                String playerName = keyboard.nextLine();
                 // if the user didn't enter a player name, inform them that the player name cannot be empty
-                if (player[i] == null || player[i].length() == 0) {
+                if (playerName == null || playerName.length() == 0) {
                     System.out.println("\nYou must enter a player name");
                 } else {
+                    players.add(new Player(playerName));
                     break;
                 }
             }
         }
+        return players;
     }
 
     static int askDetails(Player player, int playerWeek) {
@@ -92,9 +101,10 @@ class Util {
         return score;
     }
 
-    static void printSortedScores(Player[] players, int week) {
+    static void printSortedScores(ArrayList<Player> players, int week) {
 
-        System.out.println("\nYou will now see the points for each player for week " + week + " sorted from highest to lowest\n");
+        System.out.println("\nYou will now see the points for each player for week " + (week + 1)
+                + " sorted from highest to lowest\n");
         System.out.println("Player            Points");
 
         // Print the sorted player names and scores
