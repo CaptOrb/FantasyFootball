@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class methods {
+class Util {
 
     static void displayWelcomeMessage(){
         System.out.println("Welcome to Fantasy Football!\n\nYou will be asked to input details about each player's weekly " +
@@ -8,7 +8,7 @@ class methods {
                 "The points every player obtained per week will be displayed ranked from highest to lowest\n");
     }
 
-    private static Scanner keyboard = new Scanner(System.in);
+    private static final Scanner keyboard = new Scanner(System.in);
 
     static void initialisePlayers(String[] player, int numPlayers){
         for (int i = 0; i < numPlayers; i++) {
@@ -33,7 +33,7 @@ class methods {
         String didPlay;
         String playerName = player.getName();
 
-        System.out.print("\nDid " + playerName + " play in the game on week " + playerWeek + "? (y/n) ");
+        System.out.print("\nDid " + playerName + " play in the game on week " + (playerWeek + 1) + "? (y/n) ");
         didPlay = keyboard.nextLine();
 
         // Check if the player played in the game
@@ -98,8 +98,8 @@ class methods {
         System.out.println("Player            Points");
 
         // Print the sorted player names and scores
-        for (Player aPlayer : players) {
-            System.out.printf("%-10s %10d %n", aPlayer.getName() + "  ", aPlayer.getScore(week));
+        for (Player player : players) {
+            System.out.printf("%-10s %10d %n", player.getName() + "  ", player.getScore(week));
         }
     }
 }
