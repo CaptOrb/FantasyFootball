@@ -1,16 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Util {
+public class Util {
 
     static void displayWelcomeMessage() {
-        System.out.println("""
-                Welcome to Fantasy Football!
-
-                You will be asked to input details about each player's weekly performance and then each player's
-                 total points will be computed for each week.
-                The points every player obtained per week will be displayed ranked from highest to lowest
-                """);
+        System.out.println("Welcome to Fantasy Football!\n\n"
+                + "You will be asked to input details about each player's weekly performance and then each player's total points"
+                + " will be computed for each week.\n"
+                + "The points every player obtained per week will be displayed ranked from highest to lowest");
     }
 
     private static final Scanner keyboard = new Scanner(System.in);
@@ -109,7 +106,7 @@ class Util {
 
         // Print the sorted player names and scores
         for (Player player : players) {
-            System.out.printf("%-10s %10d %n", player.getName() + "  ", player.getScore(week));
+            System.out.printf("%-10s %10d %n", player.getName() + "  ", player.getWeeklyScore(week));
         }
     }
 }

@@ -1,8 +1,11 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Player {
 
     private final String playerName;
 
-    private final int[] weeklyScore = new int[10];
+    private final Map<Integer, Integer> weeklyScores = new HashMap<>();
 
     Player(String name) {
         if (name.trim().isEmpty()) {
@@ -16,12 +19,13 @@ public class Player {
         return playerName;
     }
 
-    public int getScore(int week) {
-        return weeklyScore[week];
+    public void setWeeklyScore(int week, int score){
+        weeklyScores.put(week, score);
     }
 
-    public void setWeekPlayerScore(int newScore, int week) {
-        weeklyScore[week] = newScore;
+    public int getWeeklyScore(int week){
+        return weeklyScores.get(week);
     }
+
 }
 

@@ -47,15 +47,15 @@ public class FantasyFootball {
         for (int i = 0; i < numWeeks; i++) {
             for (Player player : players) {
                 // store the score obtained for each week
-                player.setWeekPlayerScore(Util.askDetails(player, i), i);
+                player.setWeeklyScore(i, Util.askDetails(player, i));
             }
         }
 
         for (int i = 0; i < numWeeks; i++) {
-            Compare weekToCompare = new Compare(i);
+            WeeklyScoreComparator weekToWeeklyScoreComparator = new WeeklyScoreComparator(i);
 
             // sort the scores from week 1 from highest to lowest
-            Collections.sort(players, weekToCompare);
+            players.sort(weekToWeeklyScoreComparator);
 
             // Call method to print the sorted player scores for the first week
             Util.printSortedScores(players, i);
