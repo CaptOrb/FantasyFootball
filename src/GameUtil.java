@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GameUtil {
@@ -20,7 +21,7 @@ public class GameUtil {
                 System.out.print("Enter player " + (i + 1) + "'s name: ");
 
                 String playerName = keyboard.nextLine();
-                // if the user didn't enter a player name, inform them that the player name cannot be empty
+
                 if (playerName == null || playerName.length() == 0) {
                     System.out.println("\nYou must enter a player name");
                 } else {
@@ -32,60 +33,81 @@ public class GameUtil {
         return players;
     }
 
-    static int askDetails(Player player, int playerWeek) {
+    static int determineWeeklyPlayerPerformance(Player player, int week) {
 
-        //every player at the beginning has 0 points
-        int score = 0;
+        int totalPlayerScore = 0;
         String playerName = player.getName();
 
-        System.out.print("\nDid " + playerName + " play in the game on week " + (playerWeek + 1) + "? (y/n) ");
+        askQuestion("\nDid " + playerName + " play in the game on week " + (week + 1) + "? (y/n) ");
         String didPlay = keyboard.nextLine();
 
-        // Check if the player played in the game
-        // if they did award them 2 points and proceed to ask further details about the players scores
         if (didPlay.equalsIgnoreCase("y")) {
-            score += GameData.getPointsForPlaying();
+            totalPlayerScore += GameData.getPointsForPlaying();
+            int numScores;
 
-            System.out.print("How many times did " + playerName + " score a goal in the game? ");
-            int numScores = keyboard.nextInt();
-            keyboard.nextLine();
-            score += GameData.getPointsForGoal() * numScores;
+            do {
+                askQuestion("How many times did " + playerName + " score a goal in the game? ");
 
+                numScores = parseNextInteger();
+                totalPlayerScore += GameData.getPointsForGoal() * numScores;
 
-            System.out.print("How many times did " + playerName + " assist a goal? ");
-            int numGoalAssisted = keyboard.nextInt();
-            keyboard.nextLine();
+            } while (numScores < 0);
 
-            score += GameData.getPointsForAssistGoal() * numGoalAssisted;
+            int numGoalAssisted;
+            do {
+                askQuestion("How many times did " + playerName + " assist a goal? ");
+                numGoalAssisted = parseNextInteger();
+                totalPlayerScore += GameData.getPointsForAssistGoal() * numGoalAssisted;
 
-            System.out.print("How many times did " + playerName + " miss a penalty? ");
-            int numMissedPenalties = keyboard.nextInt();
-            keyboard.nextLine();
-            score += GameData.getPointsForMissingPenalty() * numMissedPenalties;
+            } while (numGoalAssisted < 0);
 
+            int numMissedPenalties;
+            do {
+                askQuestion("How many times did " + playerName + " miss a penalty? ");
+                numMissedPenalties = parseNextInteger();
+                totalPlayerScore += GameData.getPointsForMissingPenalty() * numMissedPenalties;
+            } while (numMissedPenalties < 0);
 
-            System.out.print("Did " + playerName + " get a yellow card? (y/n) ");
+            askQuestion("Did " + playerName + " get a yellow card? (y/n) ");
             String yellowCard = keyboard.nextLine();
             if (yellowCard.equalsIgnoreCase("y")) {
-                score += GameData.getPointsForYellowCard();
+                totalPlayerScore += GameData.getPointsForYellowCard();
             }
 
-
-            System.out.print("Did " + playerName + " get a red card? (y/n) ");
+            askQuestion("Did " + playerName + " get a red card? (y/n) ");
             String redCard = keyboard.nextLine();
             if (redCard.equalsIgnoreCase("y")) {
-                score += GameData.getPointsForRedCard();
+                totalPlayerScore += GameData.getPointsForRedCard();
             }
 
-            System.out.print("Was " + playerName + " the man of the match? (y/n) ");
+            askQuestion("Was " + playerName + " the man of the match? (y/n) ");
             String manOfMatch = keyboard.nextLine();
             if (manOfMatch.equalsIgnoreCase("y")) {
-                score += GameData.getPointsForManMatch();
+                totalPlayerScore += GameData.getPointsForManMatch();
             }
         }
 
-        return score;
+        return totalPlayerScore;
     }
+
+    public static int parseNextInteger() {
+        int input = -1;
+
+        try {
+            input = keyboard.nextInt();
+            keyboard.nextLine();
+        } catch (InputMismatchException ex) {
+            System.out.println("Must enter an integer");
+            keyboard.next();
+        }
+
+        return input;
+    }
+
+    private static void askQuestion(String question) {
+        System.out.print(question);
+    }
+
 
     static void printSortedScores(ArrayList<Player> players, int week) {
 

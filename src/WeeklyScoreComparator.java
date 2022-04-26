@@ -11,3 +11,4 @@ public class WeeklyScoreComparator implements Comparator<Player> {
         return Integer.compare(p2.getWeeklyScore(week), p1.getWeeklyScore(week));
     }
 }
+

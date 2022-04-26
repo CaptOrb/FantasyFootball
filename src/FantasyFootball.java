@@ -39,17 +39,14 @@ public class FantasyFootball {
 
         } while (numWeeks < 2);
 
-
-        // Call method to obtain all the players names
         ArrayList<Player> players = GameUtil.initialisePlayers(numPlayers);
 
         // for every week, ask all the players how each of their team's players performed in the game
         for (int i = 0; i < numWeeks; i++) {
             for (Player player : players) {
-                // store the score obtained for each week
-                int weeklyScore = GameUtil.askDetails(player, i);
 
-                // Output player's total score
+                int weeklyScore = GameUtil.determineWeeklyPlayerPerformance(player, i);
+
                 System.out.println(player.getName() + " has obtained a score of " + weeklyScore + " points");
                 player.setWeeklyScore(i, weeklyScore);
             }
@@ -58,10 +55,8 @@ public class FantasyFootball {
         for (int i = 0; i < numWeeks; i++) {
             WeeklyScoreComparator weekToWeeklyScoreComparator = new WeeklyScoreComparator(i);
 
-            // sort the scores from week 1 from highest to lowest
             players.sort(weekToWeeklyScoreComparator);
 
-            // Call method to print the sorted player scores for the first week
             GameUtil.printSortedScores(players, i);
         }
     }
