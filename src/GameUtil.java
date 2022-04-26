@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Util {
+public class GameUtil {
 
     static void displayWelcomeMessage() {
         System.out.println("Welcome to Fantasy Football!\n\n"
@@ -36,65 +36,54 @@ public class Util {
 
         //every player at the beginning has 0 points
         int score = 0;
-        String didPlay;
         String playerName = player.getName();
 
         System.out.print("\nDid " + playerName + " play in the game on week " + (playerWeek + 1) + "? (y/n) ");
-        didPlay = keyboard.nextLine();
+        String didPlay = keyboard.nextLine();
 
         // Check if the player played in the game
         // if they did award them 2 points and proceed to ask further details about the players scores
-        if (didPlay.equals("y")) {
-            score += 2;
+        if (didPlay.equalsIgnoreCase("y")) {
+            score += GameData.getPointsForPlaying();
 
-            int didScore;
             System.out.print("How many times did " + playerName + " score a goal in the game? ");
-            didScore = keyboard.nextInt();
+            int numScores = keyboard.nextInt();
             keyboard.nextLine();
-            // Award 5 points for scoring each goal
-            score += 5 * didScore;
+            score += GameData.getPointsForGoal() * numScores;
 
-            int goalAssist;
+
             System.out.print("How many times did " + playerName + " assist a goal? ");
-            goalAssist = keyboard.nextInt();
+            int numGoalAssisted = keyboard.nextInt();
             keyboard.nextLine();
-            // Award 3 points for assisting each goal
-            score += 3 * goalAssist;
 
-            int missedPenalty;
+            score += GameData.getPointsForAssistGoal() * numGoalAssisted;
+
             System.out.print("How many times did " + playerName + " miss a penalty? ");
-            missedPenalty = keyboard.nextInt();
+            int numMissedPenalties = keyboard.nextInt();
             keyboard.nextLine();
-            //subtract 3 points for each missed penalty
-            score -= 3 * missedPenalty;
+            score += GameData.getPointsForMissingPenalty() * numMissedPenalties;
 
-            String yellowCard;
+
             System.out.print("Did " + playerName + " get a yellow card? (y/n) ");
-            yellowCard = keyboard.nextLine();
-            if (yellowCard.equals("y")) {
-                //subtract 1 point for a yellow card
-                score -= 1;
+            String yellowCard = keyboard.nextLine();
+            if (yellowCard.equalsIgnoreCase("y")) {
+                score += GameData.getPointsForYellowCard();
             }
 
-            String redCard;
+
             System.out.print("Did " + playerName + " get a red card? (y/n) ");
-            redCard = keyboard.nextLine();
-            if (redCard.equals("y")) {
-                //subtract 3 points for a red card
-                score -= 3;
+            String redCard = keyboard.nextLine();
+            if (redCard.equalsIgnoreCase("y")) {
+                score += GameData.getPointsForRedCard();
             }
 
-            String manOfMatch;
             System.out.print("Was " + playerName + " the man of the match? (y/n) ");
-            manOfMatch = keyboard.nextLine();
-            if (manOfMatch.equals("y")) {
-                // Award 5 points for the man of the match
-                score += 5;
+            String manOfMatch = keyboard.nextLine();
+            if (manOfMatch.equalsIgnoreCase("y")) {
+                score += GameData.getPointsForManMatch();
             }
         }
 
-        // Output player's total score
-        System.out.println(playerName + " has obtained a score of " + score + " points");
         return score;
     }
 
